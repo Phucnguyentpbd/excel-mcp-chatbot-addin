@@ -1,0 +1,25 @@
+{
+  "name": "excel-chatbot-addin",
+  "version": "1.0.0",
+  "description": "Excel task pane chatbot backed by excel-mcp-server tools",
+  "main": "server/app.mjs",
+  "scripts": {
+    "start": "node server/app.mjs",
+    "dev": "node server/app.mjs",
+    "smoke:mcp": "node scripts/smoke-mcp.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@cfworker/json-schema": "^4.1.1",
+    "@modelcontextprotocol/client": "^2.0.0-alpha.2",
+    "express": "^5.2.1",
+    "office-addin-dev-certs": "^2.0.9",
+    "openai": "^6.44.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

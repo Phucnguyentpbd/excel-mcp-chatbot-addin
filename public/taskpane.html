@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Excel MCP Chatbot</title>
+    <link rel="stylesheet" href="/taskpane.css" />
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  </head>
+  <body>
+    <main class="assistant-shell">
+      <header class="topbar">
+        <div>
+          <h1>Excel MCP Assistant</h1>
+          <p id="subtitle">Excel MCP</p>
+        </div>
+        <div class="top-actions">
+          <button id="new-session-button" class="icon-button" type="button" title="New chat session">New</button>
+          <button id="sessions-button" class="icon-button" type="button" title="Saved chat sessions">Sessions</button>
+          <button id="provider-button" class="icon-button provider-button" type="button" title="Provider settings">Provider</button>
+          <span id="ready-pill" class="ready-pill">Starting</span>
+        </div>
+      </header>
+
+      <section id="messages" class="messages" aria-live="polite"></section>
+
+      <form id="chat-form" class="composer">
+        <section id="image-strip" class="image-strip" hidden></section>
+        <textarea
+          id="message-input"
+          rows="3"
+          placeholder="Hoi Excel MCP lam viec voi workbook hien tai..."
+        ></textarea>
+        <div class="toolbar">
+          <button id="model-button" class="tool-button" type="button" title="Open model list">Model</button>
+          <label class="tool-button file-button">
+            Img
+            <input id="image-input" type="file" accept="image/*" multiple />
+          </label>
+          <select id="model-select" class="model-select" title="Current model"></select>
+          <button id="send-button" class="send-button" type="submit">Send</button>
+        </div>
+      </form>
+    </main>
+
+    <dialog id="settings-dialog" class="settings-dialog">
+      <form id="settings-form" method="dialog">
+        <div class="dialog-head">
+          <div>
+            <h2>Connect provider</h2>
+            <p>Chon provider, dien key/base URL neu can, roi luu lai.</p>
+          </div>
+          <button class="close-button" value="cancel" type="submit">×</button>
+        </div>
+
+        <label class="search-provider">
+          <span>Search providers</span>
+          <input id="provider-search" type="search" placeholder="Search providers" />
+        </label>
+
+        <section id="provider-list" class="provider-list" aria-label="Providers"></section>
+
+        <label>
+          Provider name
+          <input id="provider-name" name="providerName" placeholder="OpenAI / 9Router / OpenRouter" />
+        </label>
+
+        <label>
+          API mode
+          <select id="api-mode" name="apiMode">
+            <option value="responses">OpenAI Responses API (OpenAI only)</option>
+            <option value="chat_completions">OpenAI-compatible Chat Completions (Gemini, Alibaba, GLM...)</option>
+          </select>
+          <small class="field-hint">
+            Gemini, Alibaba/DashScope, OpenRouter, GLM, DeepSeek, Groq... dùng Chat Completions qua endpoint OpenAI-compatible.
+          </small>
+        </label>
+
+        <label>
+          Base URL
+          <input id="base-url" name="baseURL" placeholder="https://api.openai.com/v1" />
+        </label>
+
+        <label>
+          API key
+          <input id="api-key" name="apiKey" type="password" placeholder="Paste key or leave masked value unchanged" />
+          <small class="field-hint">
+            Nếu đổi key, paste key thật. Chuỗi dạng <code>abcd...wxyz</code> chỉ là key đã che, app sẽ không dùng để gọi API.
+          </small>
+        </label>
+
+        <label>
+          Model
+          <input id="model-name" name="model" placeholder="gpt-4.1-mini or 9router/FREE" />
+        </label>
+
+        <div class="preset-row">
+          <button type="button" data-preset="openai">OpenAI</button>
+          <button type="button" data-preset="9router">9Router</button>
+          <button type="button" data-preset="custom">Custom</button>
+        </div>
+
+        <div class="dialog-actions">
+          <button class="ghost-button" value="cancel" type="submit">Cancel</button>
+          <button id="save-settings" class="primary-button" value="default" type="submit">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="sessions-dialog" class="sessions-dialog">
+      <form method="dialog">
+        <div class="dialog-head">
+          <div>
+            <h2>Chat sessions</h2>
+            <p>Luu local tren may nay, khong luu API key.</p>
+          </div>
+          <button class="close-button" value="cancel" type="submit">×</button>
+        </div>
+        <section id="sessions-list" class="sessions-list" aria-label="Saved chat sessions"></section>
+        <div class="dialog-actions">
+          <button class="ghost-button" value="cancel" type="submit">Close</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="/taskpane.js"></script>
+  </body>
+</html>
