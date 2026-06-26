@@ -2,9 +2,14 @@ $ErrorActionPreference = "Stop"
 
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $WorkbookPath = Join-Path $ProjectRoot "sample-workbook.xlsx"
+$BundledPython = Join-Path $ProjectRoot "vendor\excel-mcp-server\.venv\Scripts\python.exe"
 
 if (-not (Test-Path $WorkbookPath)) {
-    $python = "C:\Users\PHUC\Documents\Codex\2026-06-24\se\work\excel-mcp-server\.venv\Scripts\python.exe"
+    if (-not (Test-Path $BundledPython)) {
+        & (Join-Path $ProjectRoot "setup-bundled-excel-mcp.ps1")
+    }
+
+    $python = $BundledPython
     $env:EXCEL_CHATBOT_SAMPLE_WORKBOOK = $WorkbookPath
     $scriptPath = Join-Path $ProjectRoot ".create-sample-workbook.py"
     Set-Content -LiteralPath $scriptPath -Encoding ascii -Value @'

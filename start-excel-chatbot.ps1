@@ -4,6 +4,8 @@ $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $LogPath = Join-Path $ProjectRoot ".server-out.log"
 $ErrorLogPath = Join-Path $ProjectRoot ".server-err.log"
 $PidPath = Join-Path $ProjectRoot ".server.pid"
+$BundledMcpPython = Join-Path $ProjectRoot "vendor\excel-mcp-server\.venv\Scripts\python.exe"
+$BundledMcpSetup = Join-Path $ProjectRoot "setup-bundled-excel-mcp.ps1"
 
 if (-not $env:OPENAI_API_KEY) {
     Write-Warning "OPENAI_API_KEY is not set. The pane will open, but chat requests will not run until you set it."
@@ -17,6 +19,11 @@ if ($existing) {
     Write-Host "$BaseUrl is already listening."
     $existing | Select-Object LocalAddress, LocalPort, State, OwningProcess
     return
+}
+
+if (-not (Test-Path -LiteralPath $BundledMcpPython)) {
+    Write-Host "Bundled Excel MCP runtime not found. Bootstrapping local Python environment..."
+    & $BundledMcpSetup
 }
 
 $process = Start-Process node `

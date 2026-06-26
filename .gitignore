@@ -17,3 +17,8 @@ backups/
 *.bak
 Thumbs.db
 .DS_Store
+
+vendor/excel-mcp-server/.venv/
+vendor/excel-mcp-server/excel-mcp.log
+vendor/excel-mcp-server/excel_files/
+vendor/excel-mcp-server/src/excel_mcp/__pycache__/

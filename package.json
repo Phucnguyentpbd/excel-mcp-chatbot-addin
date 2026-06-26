@@ -4,6 +4,7 @@
   "description": "Excel task pane chatbot backed by excel-mcp-server tools",
   "main": "server/app.mjs",
   "scripts": {
+    "setup:mcp": "powershell -ExecutionPolicy Bypass -File .\\setup-bundled-excel-mcp.ps1",
     "start": "node server/app.mjs",
     "dev": "node server/app.mjs",
     "smoke:mcp": "node scripts/smoke-mcp.mjs"

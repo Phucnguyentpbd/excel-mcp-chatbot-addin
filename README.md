@@ -2,6 +2,8 @@
 
 Add-in Excel dạng task pane để chat trực tiếp với workbook đang mở và gọi các tool từ `excel-mcp-server`.
 
+Repo này hiện đã **bundled sẵn source của `excel-mcp-server`** trong thư mục `vendor/excel-mcp-server`, nên người khác clone đúng một repo này vẫn có đủ cả phần add-in lẫn backend MCP.
+
 ## Hình ảnh minh họa
 
 Chatbot chạy trực tiếp trong Excel, có thể đọc workbook hiện tại, tạo pivot/chart và phản hồi ngay trong task pane.
@@ -21,10 +23,17 @@ Chatbot chạy trực tiếp trong Excel, có thể đọc workbook hiện tại
 - Có session chat local, nút `New`, `Sessions`, copy message, edit lại message user.
 - Server local chạy HTTPS tại `https://localhost:3100`.
 - Có script autostart để server tự chạy khi đăng nhập Windows.
+- Có bundled backend `excel-mcp-server` ngay trong repo, không còn phụ thuộc thư mục MCP bên ngoài.
 
 ## MCP Excel tools đang dùng
 
 Add-in này không chỉ là giao diện chat. Phía sau nó gọi trực tiếp các tool của `excel-mcp-server`, nên agent có thể vừa hiểu yêu cầu tự nhiên vừa thao tác workbook bằng tool có cấu trúc.
+
+Source MCP bundled nằm tại:
+
+```text
+vendor/excel-mcp-server
+```
 
 ### Workbook và worksheet
 
@@ -93,11 +102,7 @@ excel-chatbot-addin/
 
 - Windows desktop Excel.
 - Node.js 20+.
-- Repo `excel-mcp-server` nằm cùng workspace:
-
-```text
-C:\Users\PHUC\Documents\Codex\2026-06-24\se\work\excel-mcp-server
-```
+- Python 3.10+.
 
 - Office localhost certificate đã được trust. Nếu thiếu cert, chạy:
 
@@ -110,6 +115,13 @@ npx office-addin-dev-certs install
 ```powershell
 cd C:\Users\PHUC\Documents\Codex\2026-06-24\se\work\excel-chatbot-addin
 npm install
+.\setup-bundled-excel-mcp.ps1
+```
+
+Hoặc chạy script npm:
+
+```powershell
+npm run setup:mcp
 ```
 
 Nếu Excel báo add-in bị chặn do certificate hết hạn hoặc không hợp lệ:
@@ -127,6 +139,8 @@ Chạy nền bằng helper script:
 cd C:\Users\PHUC\Documents\Codex\2026-06-24\se\work\excel-chatbot-addin
 .\start-excel-chatbot.ps1
 ```
+
+Nếu bundled MCP chưa có `.venv`, script này sẽ tự bootstrap Python environment trước khi mở server Node.
 
 Kiểm tra server:
 
@@ -214,6 +228,7 @@ Các file sau không nên commit:
 - `.certs/`: có private key HTTPS local.
 - `.server-*.log`, `.server.pid`.
 - `node_modules/`.
+- `vendor/excel-mcp-server/.venv/` và log/runtime files của bundled MCP.
 
 Các mục này đã được đưa vào `.gitignore`.
 
@@ -230,6 +245,7 @@ Sau đó restart Excel và vào lại `Home > Add-ins > Advanced > SHARED FOLDER
 Nếu task pane mở nhưng không load:
 
 ```powershell
+.\setup-bundled-excel-mcp.ps1
 .\start-excel-chatbot.ps1
 curl.exe -k https://localhost:3100/health
 ```
