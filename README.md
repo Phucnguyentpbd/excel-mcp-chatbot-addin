@@ -2,6 +2,12 @@
 
 Add-in Excel dạng task pane để chat trực tiếp với workbook đang mở và gọi các tool từ `excel-mcp-server`.
 
+## Hình ảnh minh họa
+
+Chatbot chạy trực tiếp trong Excel, có thể đọc workbook hiện tại, tạo pivot/chart và phản hồi ngay trong task pane.
+
+![Excel MCP Chatbot thao tác workbook, pivot table và chart](docs/images/excel-mcp-chatbot-workbook.png)
+
 ## Tính năng chính
 
 - Mở chatbot ngay trong Excel bằng nút `Open Chatbot` trên ribbon.
