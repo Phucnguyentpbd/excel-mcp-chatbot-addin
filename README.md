@@ -17,7 +17,6 @@ Chatbot chạy trực tiếp trong Excel, có thể đọc workbook hiện tại
 - Kết nối MCP Excel tools, gồm các tool thao tác file Excel và `run_python` để xử lý linh hoạt.
 - Cấu hình provider/model trực tiếp trong giao diện chatbot, không cần sửa file config thủ công.
 - Hỗ trợ nhiều provider OpenAI-compatible như 9Router, Gemini, OpenRouter, GLM, Alibaba/Qwen, DeepSeek, Groq...
-- Dropdown model tự lấy model từ các provider đã cấu hình; riêng 9Router chỉ hiện combo routing như `9router/FREE`, `9router/coder`, `9router/codex`.
 - Paste screenshot trực tiếp vào ô chat bằng `Ctrl+V`, không cần lưu file rồi upload.
 - Ảnh gửi đi được gắn theo đúng message user trong lịch sử hội thoại.
 - Có session chat local, nút `New`, `Sessions`, copy message, edit lại message user.
@@ -91,7 +90,9 @@ excel-chatbot-addin/
   public/                    Giao diện task pane Office Add-in
   server/                    Express server, provider store, chat service
   scripts/                   Script smoke test MCP
+  vendor/excel-mcp-server/   Bundled MCP backend source
   manifest.xml               Office Add-in manifest
+  setup-bundled-excel-mcp.ps1 Bootstrap Python env cho bundled MCP
   setup-excel-sideload.ps1   Cấu hình trusted shared-folder catalog cho Excel
   start-excel-chatbot.ps1    Chạy server nền tại localhost:3100
   stop-excel-chatbot.ps1     Dừng server nền
@@ -103,7 +104,6 @@ excel-chatbot-addin/
 - Windows desktop Excel.
 - Node.js 20+.
 - Python 3.10+.
-
 - Office localhost certificate đã được trust. Nếu thiếu cert, chạy:
 
 ```powershell
