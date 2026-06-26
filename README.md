@@ -89,13 +89,7 @@ excel-chatbot-addin/
 
 - Node.js 20+.
 - Repo `excel-mcp-server` nằm cùng workspace:
-
-```text
-C:\Users\PHUC\Documents\Codex\2026-06-24\se\work\excel-mcp-server
-```
-
 - Office localhost certificate đã được trust. Nếu thiếu cert, chạy:
-
 ```powershell
 npx office-addin-dev-certs install
 ```
