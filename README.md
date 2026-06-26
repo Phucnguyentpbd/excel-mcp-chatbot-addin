@@ -17,12 +17,9 @@ Chatbot chạy trực tiếp trong Excel, có thể đọc workbook hiện tại
 - Kết nối MCP Excel tools, gồm các tool thao tác file Excel và `run_python` để xử lý linh hoạt.
 - Cấu hình provider/model trực tiếp trong giao diện chatbot, không cần sửa file config thủ công.
 - Hỗ trợ nhiều provider OpenAI-compatible như 9Router, Gemini, OpenRouter, GLM, Alibaba/Qwen, DeepSeek, Groq...
-- Paste screenshot trực tiếp vào ô chat bằng `Ctrl+V`, không cần lưu file rồi upload.
-- Ảnh gửi đi được gắn theo đúng message user trong lịch sử hội thoại.
 - Có session chat local, nút `New`, `Sessions`, copy message, edit lại message user.
 - Server local chạy HTTPS tại `https://localhost:3100`.
 - Có script autostart để server tự chạy khi đăng nhập Windows.
-- Có bundled backend `excel-mcp-server` ngay trong repo, không còn phụ thuộc thư mục MCP bên ngoài.
 
 ## MCP Excel tools đang dùng
 
@@ -200,12 +197,6 @@ Trong task pane:
    - `OpenAI-compatible Chat Completions`: dùng cho Gemini, OpenRouter, Alibaba/Qwen, GLM, DeepSeek, Groq, 9Router...
 4. Nhập `Base URL`, `API key`, `Model`.
 5. Bấm `Save`.
-
-Lưu ý:
-
-- API key thật chỉ nhập trong giao diện local, không commit vào repo.
-- Nếu ô key hiển thị dạng có `...` hoặc `*`, đó là key đã che, app sẽ không dùng chuỗi che đó để gọi API.
-- Với Gemini nên dùng endpoint OpenAI-compatible:
 
 ```text
 https://generativelanguage.googleapis.com/v1beta/openai
