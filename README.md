@@ -22,6 +22,59 @@ Chatbot chạy trực tiếp trong Excel, có thể đọc workbook hiện tại
 - Server local chạy HTTPS tại `https://localhost:3100`.
 - Có script autostart để server tự chạy khi đăng nhập Windows.
 
+## MCP Excel tools đang dùng
+
+Add-in này không chỉ là giao diện chat. Phía sau nó gọi trực tiếp các tool của `excel-mcp-server`, nên agent có thể vừa hiểu yêu cầu tự nhiên vừa thao tác workbook bằng tool có cấu trúc.
+
+### Workbook và worksheet
+
+- `create_workbook`: tạo workbook Excel mới.
+- `create_worksheet`: thêm worksheet mới.
+- `copy_worksheet`: nhân bản worksheet trong cùng workbook.
+- `rename_worksheet`: đổi tên worksheet.
+- `delete_worksheet`: xóa worksheet.
+- `get_workbook_metadata`: đọc metadata, danh sách sheet và cấu trúc workbook.
+
+### Đọc, ghi và di chuyển dữ liệu
+
+- `read_data_from_excel`: đọc dữ liệu từ một range, có kèm metadata validation nếu có.
+- `write_data_to_excel`: ghi mảng dữ liệu vào worksheet.
+- `copy_range`: copy một vùng cell sang vị trí khác.
+- `delete_range`: xóa nội dung một vùng cell.
+- `validate_excel_range`: kiểm tra range có hợp lệ không trước khi thao tác.
+
+### Định dạng và bố cục sheet
+
+- `format_range`: format range: font, màu nền, màu chữ, border, alignment, wrap text, number format, conditional format...
+- `merge_cells`: merge một vùng cell.
+- `unmerge_cells`: bỏ merge.
+- `get_merged_cells`: liệt kê các vùng cell đang merge.
+- `insert_rows`, `insert_columns`: chèn dòng/cột.
+- `delete_sheet_rows`, `delete_sheet_columns`: xóa dòng/cột.
+
+### Công thức, bảng, biểu đồ và pivot
+
+- `apply_formula`: ghi công thức Excel vào cell.
+- `validate_formula_syntax`: kiểm tra cú pháp công thức trước khi áp dụng.
+- `create_table`: tạo Excel Table có style.
+- `create_chart`: tạo chart như column/bar/line/pie/scatter...
+- `create_pivot_table`: tạo Pivot Table từ vùng dữ liệu.
+
+### Data validation và Python linh hoạt
+
+- `get_data_validation_info`: đọc rule data validation trong worksheet.
+- `run_python`: chạy Python tùy ý với helper `openpyxl`, `load_workbook`, `json`, `Path`, `resolve_path`, `save_workbook`, `read_json`, `write_json`.
+
+`run_python` là escape hatch quan trọng: khi tool cố định chưa đủ, agent có thể viết Python ngắn để xử lý logic phức tạp, hoặc dùng `win32com.client` để thao tác workbook đang mở trong Excel desktop.
+
+Ví dụ các việc agent có thể làm qua MCP:
+
+- Tạo sheet báo cáo mới, copy dữ liệu, format header và thêm công thức tổng hợp.
+- Tạo biểu đồ doanh thu, thêm legend, chỉnh style và đặt chart vào vị trí mong muốn.
+- Tạo Pivot Table từ vùng dữ liệu hiện có.
+- Dọn dữ liệu: xóa dòng/cột thừa, chuẩn hóa format số, kiểm tra range.
+- Đọc workbook hiện tại rồi viết Python xử lý custom khi cần.
+
 ## Cấu trúc nhanh
 
 ```text
